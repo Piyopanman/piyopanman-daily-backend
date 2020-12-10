@@ -58,7 +58,7 @@ MIDDLEWARE = [
 
 # なんでか'localhost:3000/'じゃダメだった
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
+    '*',
 )
 
 

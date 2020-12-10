@@ -1,0 +1,3 @@
+Python~=3.7.6
+Django~=2.2.16
+djangorestframework~=3.12.1

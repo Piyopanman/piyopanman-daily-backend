@@ -53,5 +53,25 @@ class CategoryDairy(APIView):
             }
             for d in post
         ]
-        print(list(post))
+        print(post)
+        print(res_list)
+
         return Response(res_list)
+
+        # q = 'select id, date, {} from daily_daily'.format(cat)
+        # post = Daily.objects.raw(q)
+        # print(list(post))
+
+        # res_list = [
+        #     {
+        #         'date': i.date,
+        #         'content': i.cat,
+        #         # catを探しちゃう univを探してくれない
+        #         # 'Daily' object has no attribute 'cat'
+        #     }
+        #     for i in post
+        # ]
+
+        # print(res_list)
+
+        # return Response(res_list)

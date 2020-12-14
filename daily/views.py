@@ -43,7 +43,7 @@ class DetailDaily(generics.RetrieveUpdateDestroyAPIView):
 class CategoryDairy(APIView):
     def get(self, request, cat):
 
-        post = Daily.objects.values_list('date', cat).order_by('-date')
+        post = Daily.objects.filter(isOpen=True).values_list('date', cat).order_by('-date')
 
         res_list = [
             {

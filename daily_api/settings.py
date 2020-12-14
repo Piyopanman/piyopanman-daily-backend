@@ -56,9 +56,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# 'http://localhost:3000',にする
 CORS_ORIGIN_WHITELIST = (
     '*',
+    # 'http://localhost:3000',
 )
 
 

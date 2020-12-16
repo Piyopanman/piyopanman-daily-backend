@@ -53,8 +53,8 @@ class CategoryDairy(APIView):
             }
             for d in post
         ]
-        print(post)
-        print(res_list)
+        # print(post)
+        # print(res_list)
 
         return Response(res_list)
 

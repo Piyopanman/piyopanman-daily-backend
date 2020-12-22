@@ -14,11 +14,6 @@ class ListDaily(APIView):
                 {
                     'id': d.id,
                     'date': d.date,
-                    'univ': d.univ,
-                    'study': d.study,
-                    'other': d.other,
-                    'first_meet': d.first_meet,
-                    'wanna_do': d.wanna_do,
                     'evaluation': d.evaluation.evaluation,
                 }
                 for d in daily
@@ -52,6 +47,7 @@ class DetailDaily(APIView):
                 'other': daily.other,
                 'first_meet': daily.first_meet,
                 'wanna_do': daily.wanna_do,
+                'summary': daily.summary,
             }
             return Response(res)
         except:
@@ -71,7 +67,6 @@ class CategoryDairy(APIView):
                 }
                 for d in daily
             ]
-            # print(res_list)
 
             return Response(res_list)  # 辞書のリスト
             # return Response(daily)  # リストのリスト

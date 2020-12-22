@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from rest_framework import generics
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, viewsets, filters
@@ -73,7 +71,7 @@ class CategoryDairy(APIView):
                 }
                 for d in daily
             ]
-            print(res_list)
+            # print(res_list)
 
             return Response(res_list)  # 辞書のリスト
             # return Response(daily)  # リストのリスト

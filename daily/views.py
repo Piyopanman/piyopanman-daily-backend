@@ -69,15 +69,14 @@ class CategoryDairy(APIView):
             res_list = [
                 {
                     'date': d[0],
-                    'cat': cat,
-                    'content': d[1]
+                    'content': d[1],
                 }
                 for d in daily
             ]
-            # print(post)
-            # print(res_list)
+            print(res_list)
 
-            return Response(res_list)
+            return Response(res_list)  # 辞書のリスト
+            # return Response(daily)  # リストのリスト
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

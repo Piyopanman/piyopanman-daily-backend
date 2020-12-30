@@ -4,7 +4,7 @@
 
 ## ぴよぱんまんのサイトの URL
 
-https://piyopanman.piyopanman.vercel.app/
+https://piyopanman.com/ (ドメイン取りました　 2020/12/30)
 
 ## 使用技術
 

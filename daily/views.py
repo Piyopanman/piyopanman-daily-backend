@@ -9,7 +9,10 @@ from .models import Daily
 class ListDaily(APIView):
     def get(self, request):
         try:
-            daily = Daily.objects.filter(isOpen=True).order_by('-date')
+            # daily = Daily.objects.filter(isOpen=True).order_by('-date') #n+1問題
+            daily = Daily.objects.select_related(
+                "evaluation").filter(isOpen=True).order_by('-date')  # JOINでテーブルを結合して解消
+
             res_list = [
                 {
                     'id': d.id,
@@ -68,8 +71,7 @@ class CategoryDairy(APIView):
                 for d in daily
             ]
 
-            return Response(res_list)  # 辞書のリスト
-            # return Response(daily)  # リストのリスト
+            return Response(res_list)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

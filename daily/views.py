@@ -44,10 +44,10 @@ class DetailDaily(APIView):
 
 
 class CategoryDairy(APIView):
-    def get(self, request, cat):
+    def get(self, request, category):
         try:
-            daily = Daily.objects.raw('SELECT id, date, {category} FROM daily_daily WHERE isOpen = true ORDER BY date DESC;'.format(category=cat))
-            res = [category_dict[cat](item) for item in daily]
+            daily = Daily.objects.raw('SELECT id, date, {category} FROM daily_daily WHERE isOpen = true ORDER BY date DESC;'.format(category=category))
+            res = [category_dict[category](item) for item in daily]
             return Response(res)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

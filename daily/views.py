@@ -5,22 +5,17 @@ from rest_framework import status, viewsets, filters
 
 from .models import Daily
 
+from .common.common import get_all, get_main, category_dict
 
 class ListDaily(APIView):
     def get(self, request):
         try:
-            # daily = Daily.objects.filter(isOpen=True).order_by('-date') #n+1問題
+            daily = Daily.objects.filter(isOpen=True).order_by('-date') #n+1問題
             daily = Daily.objects.select_related(
                 "evaluation").filter(isOpen=True).order_by('-date')  # JOINでテーブルを結合して解消
+            # daily = Daily.objects.raw('SELECT daily_daily.id, date, daily_evaluation.evaluation FROM daily_daily INNER JOIN daily_evaluation ON daily_daily.evaluation_id = daily_evaluation.id WHERE isOpen = true;')
 
-            res_list = [
-                {
-                    'id': d.id,
-                    'date': d.date,
-                    'evaluation': d.evaluation.evaluation,
-                }
-                for d in daily
-            ]
+            res_list = [get_main(item) for item in daily]
             return Response(res_list)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -42,16 +37,7 @@ class DetailDaily(APIView):
             except:
                 error_msg = "そんなidの日報はないよ！"
                 return Response(error_msg, status=status.HTTP_404_NOT_FOUND)
-            res = {
-                'id': daily.id,
-                'date': daily.date,
-                'univ': daily.univ,
-                'study': daily.study,
-                'other': daily.other,
-                'first_meet': daily.first_meet,
-                'wanna_do': daily.wanna_do,
-                'summary': daily.summary,
-            }
+            res = get_all(daily)
             return Response(res)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -60,35 +46,8 @@ class DetailDaily(APIView):
 class CategoryDairy(APIView):
     def get(self, request, cat):
         try:
-            daily = Daily.objects.filter(isOpen=True).values_list(
-                'date', cat).order_by('-date')
-
-            res_list = [
-                {
-                    'date': d[0],
-                    'content': d[1],
-                }
-                for d in daily
-            ]
-
-            return Response(res_list)
+            daily = Daily.objects.raw('SELECT id, date, {category} FROM daily_daily WHERE isOpen = true ORDER BY date DESC;'.format(category=cat))
+            res = [category_dict[cat](item) for item in daily]
+            return Response(res)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-            # q = 'select id, date, {} from daily_daily'.format(cat)
-            # post = Daily.objects.raw(q)
-            # print(list(post))
-
-            # res_list = [
-            #     {
-            #         'date': i.date,
-            #         'content': i.cat,
-            #         # catを探しちゃう univを探してくれない
-            #         # 'Daily' object has no attribute 'cat'
-            #     }
-            #     for i in post
-            # ]
-
-            # print(res_list)
-
-            # return Response(res_list)

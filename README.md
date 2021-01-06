@@ -6,6 +6,12 @@
 
 https://piyopanman.com/ (ドメイン取りました　 2020/12/30)
 
+## 記事
+
+Qiita でこの日報アプリについて記事を書きました！  
+たくさんの人に読んでいただいて感謝 :sparkles:  
+https://qiita.com/Piyopanman/items/5ffb9c290d452e0a5782
+
 ## 使用技術
 
 - Django (Django Rest Framework)

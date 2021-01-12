@@ -1,5 +1,6 @@
 from django.db import models
 from markdownx.models import MarkdownxField
+import datetime
 
 
 class Daily(models.Model):
@@ -23,3 +24,14 @@ class Evaluation(models.Model):
 
     def __str__(self):
         return self.evaluation
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    twitter = models.CharField(blank=True, max_length=50)
+    content = models.TextField()
+    datetime = models.DateTimeField(default=datetime.datetime.now())
+
+    def __str__(self):
+        return self.name

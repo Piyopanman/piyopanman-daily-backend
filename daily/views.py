@@ -95,9 +95,14 @@ class CategoryDairy(APIView):
 
 
 class Contact(APIView):
-    def post(self, reqest):
-        body = dict(reqest.data)
-        contact = Contact(name=body['name'], email=body['email'],
-                          twitter=body['twitter'], content=body['content'])
-        contact.save()
-        return Response(contact)
+    def post(self, request):
+        print("hoge")
+        try:
+            body = dict(request.data)
+            contact = Contact(name=body['name'], email=body['email'],
+                              twitter=body['twitter'], content=body['content'])
+            contact.save()
+            return Response(body)
+        except:
+            error_msg = "エラーです"
+            return Response(error_msg, status=HTTP_500_INTERNAL_SERVER_ERROR)

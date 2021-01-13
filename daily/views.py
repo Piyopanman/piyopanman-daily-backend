@@ -94,7 +94,7 @@ class CategoryDairy(APIView):
             # return Response(res_list)
 
 
-class Contact(APIView):
+class ContactView(APIView):
     def post(self, request):
         body = dict(request.data)
         contact = Contact(name=body['name'], email=body['email'],

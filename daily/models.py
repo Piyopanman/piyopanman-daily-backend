@@ -30,6 +30,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
     twitter = models.CharField(max_length=50)
+    oshi = models.CharField(blank=True, max_length=50)
     content = models.TextField()
     datetime = models.DateTimeField(default=datetime.datetime.now())
 

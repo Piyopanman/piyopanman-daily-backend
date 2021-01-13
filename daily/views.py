@@ -98,6 +98,6 @@ class ContactView(APIView):
     def post(self, request):
         body = dict(request.data)
         contact = Contact(name=body['name'], email=body['email'],
-                          twitter=body['twitter'], content=body['content'])
+                          twitter=body['twitter'], oshi=body['oshi'], content=body['content'])
         contact.save()
         return Response(body)

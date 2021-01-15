@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, viewsets, filters
 
-from .models import Daily
+from .models import Daily, Evaluation, Contact
 
 
 class ListDaily(APIView):
@@ -92,3 +92,12 @@ class CategoryDairy(APIView):
             # print(res_list)
 
             # return Response(res_list)
+
+
+class ContactView(APIView):
+    def post(self, request):
+        body = dict(request.data)
+        contact = Contact(name=body['name'], email=body['email'],
+                          twitter=body['twitter'], oshi=body['oshi'], content=body['content'])
+        contact.save()
+        return Response(body)

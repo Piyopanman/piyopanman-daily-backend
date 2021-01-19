@@ -141,6 +141,11 @@ REST_FRAMEWORK = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'daily_api/static'),
+)
+
+
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,

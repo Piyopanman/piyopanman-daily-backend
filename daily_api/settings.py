@@ -133,7 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "/home/Piyopanman/daily_api/static"
+STATIC_ROOT = "/home/Piyopanman/piyopanman.pythonanywhere.com/daily_api/static"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

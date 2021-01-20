@@ -28,7 +28,7 @@ class Evaluation(models.Model):
 
 class Contact(models.Model):
     name = models.CharField(max_length=50)
-    email = models.EmailField(blank=True)
+    email = models.EmailField(max_length=100, blank=True)
     twitter = models.CharField(max_length=50)
     oshi = models.CharField(blank=True, max_length=50)
     content = models.TextField()

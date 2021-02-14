@@ -5,6 +5,8 @@ from rest_framework import status, viewsets, filters
 
 from .models import Daily, Evaluation, Contact
 
+from .common.calc import calc_eva
+
 
 class ListDaily(APIView):
     def get(self, request):
@@ -12,7 +14,6 @@ class ListDaily(APIView):
             # daily = Daily.objects.filter(isOpen=True).order_by('-date') #n+1問題
             daily = Daily.objects.select_related(
                 "evaluation").filter(isOpen=True).order_by('-date')  # JOINでテーブルを結合して解消
-
             res_list = [
                 {
                     'id': d.id,
@@ -101,3 +102,30 @@ class ContactView(APIView):
                           twitter=body['twitter'], oshi=body['oshi'], content=body['content'])
         contact.save()
         return Response(body)
+
+
+class EvalRatio(APIView):
+    def get(self, request):
+        try:
+            try:
+                dailies = Daily.objects.select_related(
+                    "evaluation").filter(isOpen=True)
+                eva_list = {"perfect": 0, "good": 0, "soso": 0, "bad": 0}
+                for d in dailies:
+                    eva = d.evaluation.evaluation
+                    if eva == "perfect":
+                        eva_list["perfect"] += 1
+                    elif eva == "good":
+                        eva_list["good"] += 1
+                    elif eva == "soso":
+                        eva_list["soso"] += 1
+                    else:
+                        eva_list["bad"] += 1
+                calc_eva(eva_list)
+            except:
+                error_msg = "no id error"
+                return Response(error_msg, status=status.HTTP_404_NOT_FOUND)
+
+            return Response(eva_list)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

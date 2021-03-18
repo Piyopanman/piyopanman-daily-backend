@@ -100,3 +100,15 @@ class EvalRatio(APIView):
             return Response(eva_list)
         except:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class CategoryList(APIView):
+    def get(self,request):
+        categories = Daily._meta.get_fields()
+        print(categories)
+        res = list()
+        for i, categories in enumerate(categories):
+            if i > 0 and categories.name != "date" and categories.name !="evaluation" and categories.name !="isOpen":
+                res.append(categories.name)
+        print(res)        
+        return Response(res)
